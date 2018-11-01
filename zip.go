@@ -8,13 +8,14 @@ import (
 )
 
 func main() {
+	path := "examplefiles/"
 	fileName :=  "world-cities.csv" //os.Args[1]
-	content, err := ioutil.ReadFile(fileName)
+	content, err := ioutil.ReadFile(path +fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	zipFileName := fileName[:len(fileName)-4] + ".zip"
+	zipFileName := path + "results/" + fileName[:len(fileName)-4] + ".zip"
 	fmt.Printf("Creating zip file: %s \n", zipFileName)
 
 	f, err := os.Create(zipFileName)
