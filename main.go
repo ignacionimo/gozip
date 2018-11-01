@@ -8,12 +8,12 @@ import (
 )
 
 func main() {
-	src, err := os.Open("source.txt")
+	src, err := os.Open("examplefiles/source.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer src.Close()
-	dest, err := os.Create("next.zip")
+	dest, err := os.Create("examplefiles/results/next.zip")
 	if err != nil {
 		log.Fatal(err)
 	}
