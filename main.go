@@ -1,26 +1,29 @@
 package main
 
 import (
-	"compress/zlib"
+	"archive/zip"
 	"io"
 	"log"
 	"os"
 )
 
 func main() {
-	src, err := os.Open("examplefiles/source.txt")
+	src, err := os.Open("world-cities.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer src.Close()
-	dest, err := os.Create("examplefiles/results/next.zip")
+	dest, err := os.Create("next.zip")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer dest.Close()
-	zdest := zlib.NewWriter(dest)
-	defer zdest.Close()
-	if _, err := io.Copy(zdest, src); err != nil {
+
+	zdest := zip.NewWriter(dest)
+	wr, err := zdest.Create("_world-cities.csv")
+	if _, err := io.Copy(wr, src); err != nil {
 		log.Fatal(err)
 	}
+	err = zdest.Close()
+	log.Println("ERR: ", err)
 }
